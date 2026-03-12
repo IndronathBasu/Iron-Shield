@@ -1,0 +1,74 @@
+# ------------------------------
+# Python
+# ------------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyc.*
+
+# ------------------------------
+# Virtual Environment
+# ------------------------------
+anemia_env/
+venv/
+env/
+.venv/
+
+# ------------------------------
+# Dataset (usually large)
+# ------------------------------
+dataset/raw/
+dataset/processed/images/
+
+# If you want to keep labels but not images
+# comment the line above
+
+# ------------------------------
+# Trained Models
+# ------------------------------
+*.pth
+*.pt
+*.ckpt
+
+# ------------------------------
+# Logs
+# ------------------------------
+logs/
+*.log
+
+# ------------------------------
+# Notebook checkpoints
+# ------------------------------
+.ipynb_checkpoints/
+
+# ------------------------------
+# IDE / Editor
+# ------------------------------
+.vscode/
+.idea/
+
+# ------------------------------
+# OS files
+# ------------------------------
+.DS_Store
+Thumbs.db
+
+# ------------------------------
+# Build / Temp
+# ------------------------------
+build/
+dist/
+*.egg-info/
+
+# ------------------------------
+# Evaluation outputs
+# ------------------------------
+evaluation/results/
+evaluation/plots/
+
+# ------------------------------
+# API cache / uploads
+# ------------------------------
+uploads/
+temp/
