@@ -1,31 +1,80 @@
-from ultralytics import YOLO
-import cv2
-from inference.predict_hb import predict_hb
-from segmentation.predict_mask import predict_mask
+import sys
+import os
 
-eye_detector = YOLO("eye_detector.pt")
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, PROJECT_ROOT)
+
+import cv2
+import torch
+import numpy as np
+
+from detection.detect_eye import EyeDetector
+from segmentation.predict_mask import predict_mask
+from inference.predict_hb import predict_hb
+from models.risk_model import classify_anemia
+
+detector = EyeDetector()
+
 
 def run_pipeline(image_path):
 
     image = cv2.imread(image_path)
 
-    # Detect eye
-    results = eye_detector(image)
+    if image is None:
+        print("Image not found")
+        return
 
-    box = results[0].boxes.xyxy[0].cpu().numpy()
+    # ------------------------
+    # 1 Eye Detection
+    # ------------------------
 
-    x1,y1,x2,y2 = map(int,box)
+    boxes = detector.detect(image)
 
-    eye_crop = image[y1:y2,x1:x2]
+    if len(boxes) == 0:
+        print("No eye detected")
+        return
 
-    # Segment conjunctiva
-    mask = predict_mask(seg_model, eye_crop)
+    x1, y1, x2, y2 = map(int, boxes[0])
 
-    conjunctiva = eye_crop * mask[:,:,None]
+    eye_crop = image[y1:y2, x1:x2]
 
-    cv2.imwrite("temp_conjunctiva.jpg", conjunctiva)
+    cv2.imwrite("outputs/eye_crop.jpg", eye_crop)
 
-    # Predict Hb
-    hb = predict_hb("temp_conjunctiva.jpg")
+    # ------------------------
+    # 2 Segmentation
+    # ------------------------
 
-    return hb
+    mask = predict_mask(eye_crop)
+
+    mask = (mask > 0.5).astype("uint8")
+
+    # Resize mask to match eye crop
+    mask = cv2.resize(mask, (eye_crop.shape[1], eye_crop.shape[0]))
+
+    conjunctiva = eye_crop * mask[:, :, None]
+
+    cv2.imwrite("outputs/conjunctiva.jpg", conjunctiva)
+
+    # ------------------------
+    # 3 Hb Prediction
+    # ------------------------
+
+    hb = predict_hb("outputs/conjunctiva.jpg")
+
+    # ------------------------
+    # 4 Risk Classification
+    # ------------------------
+
+    risk = classify_anemia(hb)
+
+    print("\nRESULT")
+    print("--------------------")
+    print(f"Hemoglobin : {hb:.2f} g/dL")
+    print(f"Risk Level : {risk}")
+
+
+if __name__ == "__main__":
+
+    img_path = input("Enter image path: ")
+
+    run_pipeline(img_path)

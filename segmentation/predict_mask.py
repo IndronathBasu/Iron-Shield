@@ -1,16 +1,30 @@
 import torch
 import cv2
+import segmentation_models_pytorch as smp
 
-def predict_mask(model, image):
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+model = smp.Unet(
+    encoder_name="resnet34",
+    encoder_weights=None,
+    in_channels=3,
+    classes=1,
+)
+
+model.load_state_dict(torch.load("models/conjunctiva_unet.pth"))
+model = model.to(device)
+model.eval()
+
+def predict_mask(image):
 
     image = cv2.resize(image,(224,224))
+    image = image/255.0
 
-    image = image.transpose(2,0,1)/255.0
-    image = torch.tensor(image).float().unsqueeze(0)
+    tensor = torch.tensor(image).permute(2,0,1).unsqueeze(0).float().to(device)
 
     with torch.no_grad():
-        mask = model(image)
+        pred = model(tensor)
 
-    mask = mask.squeeze().numpy()
+    mask = pred.squeeze().cpu().numpy()
 
     return mask
