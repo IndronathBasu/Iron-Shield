@@ -9,8 +9,8 @@ from utils.dataset_loader import AnemiaDataset
 from models.hb_model import HbModel
 
 
-DATASET_PATH = "dataset/processed/labels.csv"
-IMAGE_PATH = "dataset/processed/images"
+DATASET_PATH = "dataset/anemia/processed/labels.csv"
+IMAGE_PATH = "dataset/anemia/processed/images"
 
 
 dataset = AnemiaDataset(DATASET_PATH, IMAGE_PATH)
