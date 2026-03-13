@@ -1,76 +1,132 @@
-############################
-# Python
-############################
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.pyc.*
-*.pkl
+# ================================
 
-############################
-# Virtual Environment
-############################
-anemia_env/
+# Iron Shield - Git Ignore
+
+# ================================
+
+# ----------------
+
+# Python
+
+# ----------------
+
+**pycache**/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+*.pyo
+
+# ----------------
+
+# Virtual Environments
+
+# ----------------
+
 venv/
 env/
+anemia_env/
 .venv/
 
-############################
-# Dataset (large files)
-############################
-dataset/
-!dataset/README.md
+# ----------------
 
-############################
+# Dataset
+
+# ----------------
+
+dataset/raw/
+dataset/segmentation/
+dataset/processed/images/
+
+# Keep labels if needed
+
+!dataset/processed/labels.csv
+
+# ----------------
+
 # Trained Models
-############################
-models/*.pt
+
+# ----------------
+
 models/*.pth
-*.pt
-*.pth
-*.onnx
+models/*.pt
 
-############################
-# YOLO Training Outputs
-############################
+# ----------------
+
+# YOLO Training Runs
+
+# ----------------
+
 runs/
-yolo_runs/
+*.pt
 
-############################
-# Outputs / Predictions
-############################
+# ----------------
+
+# Output Files
+
+# ----------------
+
 outputs/
 predictions/
+results/
+
+# ----------------
+
+# Logs
+
+# ----------------
+
+*.log
 logs/
 
-############################
+# ----------------
+
 # Jupyter
-############################
+
+# ----------------
+
 .ipynb_checkpoints/
 
-############################
-# IDE files
-############################
-.vscode/
-.idea/
+# ----------------
 
-############################
-# OS files
-############################
+# OS Files
+
+# ----------------
+
 .DS_Store
 Thumbs.db
 
-############################
-# Build files
-############################
-build/
-dist/
-*.egg-info/
+# ----------------
 
-############################
-# Temporary files
-############################
-*.log
+# IDE
+
+# ----------------
+
+.vscode/
+.idea/
+
+# ----------------
+
+# Environment Variables
+
+# ----------------
+
+.env
+.env.*
+
+# ----------------
+
+# Streamlit Cache
+
+# ----------------
+
+.streamlit/
+
+# ----------------
+
+# Temporary Files
+
+# ----------------
+
 *.tmp
-*.cache
+*.temp
