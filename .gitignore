@@ -97,15 +97,6 @@ Thumbs.db
 
 # ----------------
 
-# Environment Variables
-
-# ----------------
-
-.env
-.env.*
-
-# ----------------
-
 # Streamlit Cache
 
 # ----------------
