@@ -1,10 +1,11 @@
+streamlit
 torch
 torchvision
-pandas
+ultralytics
+opencv-python-headless
 numpy
-scikit-learn
+pandas
+matplotlib
 Pillow
 tqdm
-matplotlib
-fastapi
-uvicorn
+scikit-learn
