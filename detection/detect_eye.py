@@ -2,7 +2,7 @@ import cv2
 from ultralytics import YOLO
 
 # Load trained YOLO model
-model = YOLO("runs/detect/runs/eye_detector/weights/best.pt")
+model = YOLO("models/eye_detector.pt")
 
 
 def detect_eye(image_path):

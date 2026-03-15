@@ -30,7 +30,7 @@ anemia_env/
 
 # ----------------
 
-# Dataset
+# Dataset (too large for GitHub)
 
 # ----------------
 
@@ -38,18 +38,9 @@ dataset/raw/
 dataset/segmentation/
 dataset/processed/images/
 
-# Keep labels if needed
+# Keep labels file
 
 !dataset/processed/labels.csv
-
-# ----------------
-
-# Trained Models
-
-# ----------------
-
-models/*.pth
-models/*.pt
 
 # ----------------
 
@@ -58,7 +49,6 @@ models/*.pt
 # ----------------
 
 runs/
-*.pt
 
 # ----------------
 
